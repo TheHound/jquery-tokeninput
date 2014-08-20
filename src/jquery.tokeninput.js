@@ -53,6 +53,7 @@
     // Tokenization settings
     tokenLimit: null,
     tokenDelimiter: ",",
+	additionalTextDelimiter: "-",
     preventDuplicates: false,
     tokenValue: "id",
 
@@ -796,8 +797,8 @@
               return el[$(input).data("settings").tokenValue];
           });
           hidden_input.val(token_values.join($(input).data("settings").tokenDelimiter));
-		  if ($(input).data("settings").allowAdditionalText){
-			hidden_input.val(hidden_input.val()+$(input).data("settings").tokenDelimiter+currentText);
+		  if ($(input).data("settings").allowAdditionalText && currentText){
+			hidden_input.val(hidden_input.val()+$(input).data("settings").additionalTextDelimiter+currentText);
 		  }
       }
 
