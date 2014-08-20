@@ -21,6 +21,7 @@
     contentType: "json",
     excludeCurrent: false,
     excludeCurrentParameter: "x",
+	
 
     // Prepopulation settings
     prePopulate: null,
@@ -59,6 +60,7 @@
     allowFreeTagging: false,
     allowTabOut: false,
     autoSelectFirstResult: false,
+	allowAdditionalText: false,
 
     // Callbacks
     onResult: null,
@@ -143,7 +145,7 @@
   var methods = {
       init: function(url_or_data_or_function, options) {
           var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
-
+		  settings.allowTabOut = settings.allowTabOut || settings.allowAdditionalText;
           return this.each(function () {
               $(this).data("settings", settings);
               $(this).data("tokenInputObject", new $.TokenList(this, url_or_data_or_function, settings));
@@ -270,8 +272,11 @@
               if ($(input).data("settings").allowFreeTagging) {
                 add_freetagging_tokens();
               }
-
-              $(this).val("");
+			  if (!$(input).data("settings").allowAdditionalText){
+				$(this).val("");
+			  } else {
+				update_hidden_input(saved_tokens,hidden_input,$(this).val());
+			  }
               token_list.removeClass($(input).data("settings").classes.focused);
           })
           .bind("keyup keydown blur update", resize_input)
@@ -359,7 +364,9 @@
                           add_freetagging_tokens();
                         }
                       } else {
-                        $(this).val("");
+						if (!$(input).data("settings").allowAdditionalText){
+							$(this).val("");
+						}
                         if($(input).data("settings").allowTabOut) {
                           return true;
                         }
@@ -781,7 +788,7 @@
       }
 
       // Update the hidden input box value
-      function update_hidden_input(saved_tokens, hidden_input) {
+      function update_hidden_input(saved_tokens, hidden_input, currentText) {
           var token_values = $.map(saved_tokens, function (el) {
               if(typeof $(input).data("settings").tokenValue == 'function')
                 return $(input).data("settings").tokenValue.call(this, el);
@@ -789,7 +796,9 @@
               return el[$(input).data("settings").tokenValue];
           });
           hidden_input.val(token_values.join($(input).data("settings").tokenDelimiter));
-
+		  if ($(input).data("settings").allowAdditionalText){
+			hidden_input.val(hidden_input.val()+$(input).data("settings").tokenDelimiter+currentText);
+		  }
       }
 
       // Hide and clear the results dropdown
