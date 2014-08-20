@@ -749,28 +749,30 @@
 	
 	<h2>Allow Change Focus</h2>
     <div>
-        <input type="text" id="demo-input-change-focus" name="blah2" />
-        <input type="button" value="Submit" />
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $("#demo-input-change-focus").tokenInput([
-                    {id: 7, name: "Ruby"},
-                    {id: 11, name: "Python"},
-                    {id: 13, name: "JavaScript"},
-                    {id: 17, name: "ActionScript"},
-                    {id: 19, name: "Scheme"},
-                    {id: 23, name: "Lisp"},
-                    {id: 29, name: "C#"},
-                    {id: 31, name: "Fortran"},
-                    {id: 37, name: "Visual Basic"},
-                    {id: 41, name: "C"},
-                    {id: 43, name: "C++"},
-                    {id: 47, name: "Java"}
-                ], {
-					allowAdditionalText: true
-                });
-            });
-        </script>
+		<form onsubmit="alert('Would submit: ' + $('#demo-input-change-focus')[0].value); return false;">
+			<input type="text" id="demo-input-change-focus" name="blah2" />
+			<input type=submit />
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$("#demo-input-change-focus").tokenInput([
+						{id: 7, name: "Ruby"},
+						{id: 11, name: "Python"},
+						{id: 13, name: "JavaScript"},
+						{id: 17, name: "ActionScript"},
+						{id: 19, name: "Scheme"},
+						{id: 23, name: "Lisp"},
+						{id: 29, name: "C#"},
+						{id: 31, name: "Fortran"},
+						{id: 37, name: "Visual Basic"},
+						{id: 41, name: "C"},
+						{id: 43, name: "C++"},
+						{id: 47, name: "Java"}
+					], {
+						allowAdditionalText: true
+					});
+				});
+			</script>
+		</form>
     </div>
 
 </body>

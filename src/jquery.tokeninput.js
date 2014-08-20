@@ -367,6 +367,8 @@
                       } else {
 						if (!$(input).data("settings").allowAdditionalText){
 							$(this).val("");
+						} else {
+							update_hidden_input(saved_tokens, hidden_input, $(this).val());
 						}
                         if($(input).data("settings").allowTabOut) {
                           return true;
@@ -797,7 +799,7 @@
               return el[$(input).data("settings").tokenValue];
           });
           hidden_input.val(token_values.join($(input).data("settings").tokenDelimiter));
-		  if ($(input).data("settings").allowAdditionalText && currentText){
+		  if ($(input).data("settings").allowAdditionalText && currentText != null){
 			hidden_input.val(hidden_input.val()+$(input).data("settings").additionalTextDelimiter+currentText);
 		  }
       }
