@@ -72,6 +72,7 @@
     onFreeTaggingAdd: null,
     onDelete: null,
     onReady: null,
+	onSubmit: null,
 
     // Other settings
     idPrefix: "token-input-",
@@ -373,7 +374,13 @@
 							update_hidden_input(saved_tokens, hidden_input, $(this).val());
 						}
                         if($(input).data("settings").allowTabOut) {
-                          return true;
+							if ($(input).data("settings").allowAdditionalText){
+								var callback = $(input).data("settings").onSubmit;
+								if (callback){
+									callback($(this).val());
+								}
+							}
+							return true;
                         }
                       }
                       event.stopPropagation();

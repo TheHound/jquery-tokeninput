@@ -749,9 +749,10 @@
 	
 	<h2>Allow Change Focus</h2>
     <div>
-		<form onsubmit="alert('Would submit: ' + $('#demo-input-change-focus')[0].value); return false;">
+	<!-- onsubmit="alert('Would submit: ' + $('#demo-input-change-focus')[0].value); return false;" -->
+		<form >
 			<input type="text" id="demo-input-change-focus" name="blah2" />
-			<input type=submit />
+			<!--<input type=submit />-->
 			<script type="text/javascript">
 				$(document).ready(function() {
 					$("#demo-input-change-focus").tokenInput([
@@ -768,7 +769,8 @@
 						{id: 43, name: "C++"},
 						{id: 47, name: "Java"}
 					], {
-						allowAdditionalText: true
+						allowAdditionalText: true,
+						onSubmit: function(text){alert("TheExtraTextIs:"+text)}
 					});
 				});
 			</script>
