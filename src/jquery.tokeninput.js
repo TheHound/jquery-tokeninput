@@ -21,6 +21,8 @@
     contentType: "json",
     excludeCurrent: false,
     excludeCurrentParameter: "x",
+	baseURL : "",
+	resultsLimitParameter:"l",
 	
 
     // Prepopulation settings
@@ -1017,6 +1019,11 @@
                   if ($(input).data("settings").crossDomain) {
                       ajax_params.dataType = "jsonp";
                   }
+				  
+				  //Limit response
+				  if ($(input).data("settings").resultsLimitParameter!=null && $(input).data("settings").resultsLimit !=null){
+					ajax_params.data[$(input).data("settings").resultsLimitParameter] = $(input).data("settings").resultsLimit;
+				  }
 
                   // exclude current tokens?
                   // send exclude list to the server, so it can also exclude existing tokens
@@ -1066,13 +1073,16 @@
               }
           }
       }
-
+	  
       // compute the dynamic URL
       function computeURL() {
           var url = $(input).data("settings").url;
           if(typeof $(input).data("settings").url == 'function') {
               url = $(input).data("settings").url.call($(input).data("settings"));
           }
+		  if (!(new RegExp('^(http(s)?[:]//)','i')).test(url)) {
+			url = $(input).data("settings").baseURL + url;
+		  }
           return url;
       }
 
